@@ -34,9 +34,6 @@
                     objn++;
                 }
             }
-            if (objn == 0) {
-                console.log('error:needs arguments');
-            }
 
             itemClass = options.itemClass;
             itemHover = options.itemHover;
@@ -67,7 +64,7 @@
 
     $(document).on('scroll', function () {
         var scroll = parseInt($(document).scrollTop());
-        if (menuSize != null) {
+        if (menuSize != null && content.length > 0) {
             for (var i = 0; i < menuSize; i++) {
                 contentTop[i] = $('#' + content[i] + '').offset().top;
                 function bottomView(i) {
@@ -87,6 +84,7 @@
                     $('.' + itemClass).removeClass(itemHover);
                     $('.' + itemClass + ':eq(' + i + ')').addClass(itemHover);
                 }
+
                 if (scrollDir == 'up') {
                     bottomView(i);
                 }
