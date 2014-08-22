@@ -14,6 +14,7 @@ function($) {
 		var stickyMarginB = 0;
 		var currentMarginT = 0;
 		var topMargin = 0;
+
 		$(window).scroll(function(event){
    			var st = $(this).scrollTop();
    			if (st > lastScrollTop){
@@ -96,11 +97,12 @@ function($) {
 
 
 			if(vartop < varscroll + topMargin){
-				$('.stuckMenu').addClass('isStuck');
-				$('.stuckMenu').next().closest('div').css({
+        var $stuckMenu = $('.stuckMenu');
+				$stuckMenu.addClass('isStuck');
+				$stuckMenu.next().closest('div').css({
 					'margin-top': stickyHeight + stickyMarginB + currentMarginT + 'px'
 				}, 10);
-				$('.stuckMenu').css("position","fixed");
+				$stuckMenu.css("position","fixed");
 				$('.isStuck').css({
 					top: '0px'
 				}, 10, function(){
