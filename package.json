@@ -1,6 +1,7 @@
 {
   "name": "stickUp",
   "version": "1.0.1",
+  "main": "src/stickUp.js",
   "description": "",
   "author": "Jorge Garcia",
   "devDependencies": {
