@@ -13,6 +13,7 @@
     $element = $(),
     currentMarginT = 0,
     topMargin = 0,
+    $placeholder = $('<div style="margin:0"></div>'),
     top,
 
     getTopMargin = function(options) {
@@ -37,7 +38,6 @@
         if(!active){
             stickyHeight = parseInt($element.outerHeight(true));
             top = parseInt($element.offset().top);
-            currentMarginT = parseInt($element.next().closest('div').css('margin-top'));
         }
     },
      
@@ -69,25 +69,19 @@
         if (top < scroll + topMargin && !$element.hasClass('isStuck')) {
             active = true;
             window.requestAnimationFrame(function() {
-                $element
-                    .addClass('isStuck')
-                    .next()
-                    .closest('div')
-                    .css({
-                        'margin-top': stickyHeight + currentMarginT + 'px'
+                $element.before($placeholder.css('height',$element.outerHeight()));
+                $element.addClass('isStuck')
+                    .css({ 
+                        position: "fixed",
+                        top: '0px'
                     });
-
-                $element.css("position", "fixed");
-
-                $element.css({ 
-                    top: '0px'
-                });
             });
         }
         
         //UNSTICK
         if (scroll + topMargin < top && $element.hasClass('isStuck')) {
             window.requestAnimationFrame(function() {
+                $placeholder.remove();
                 $element
                     .removeClass('isStuck')
                     .next()
