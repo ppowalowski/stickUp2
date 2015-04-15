@@ -37,17 +37,19 @@
     },
 
     stickUpScrollHandlerFn = function(event) {
-        var st = $(event.target).scrollTop();
-        scrollDir = (st >= lastScrollTop) ? 'down' : 'up';
-        console.log("______");
-        console.log(scrollDir);
-        scrollDistance = Math.abs(lastScrollTop-st);
-        lastScrollTop = st;
+        var scroll = $(event.target).scrollTop();
+        scrollDir = (scroll >= lastScrollTop) ? 'down' : 'up';
+        scrollDistance = Math.abs(lastScrollTop-scroll);
+        lastScrollTop = scroll;
+        
+        // permanently measure initial sizes to avoid errors with loading images
+        // and dynamic elements in document
         if(!active){
             stickyHeight = parseInt($element.outerHeight(true));
             top = parseInt($element.offset().top);
         }
-        var scroll = parseInt($(document).scrollTop());
+        
+        // highlighting
         if (menuSize != null && content.length > 0) {
             for (var i = 0; i < menuSize; i++) {
                 contentTop[i] = $('#' + content[i] + '').offset().top;
@@ -69,6 +71,8 @@
                 }
             }
         }
+        
+        // Google like reappearance on upward scroll
         if(options.scrollHide){
             offset = $element.outerHeight();
             if(active){
@@ -83,6 +87,7 @@
                 }
             }
         }
+        
         //STICK IT
         if (top + offset < scroll + topMargin && !$element.hasClass('isStuck')) {
             window.requestAnimationFrame(function() {
