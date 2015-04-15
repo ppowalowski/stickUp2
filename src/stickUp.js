@@ -32,7 +32,7 @@
 
     baseScrollHandlerFn = function(event) {
         var st = $(event.target).scrollTop();
-        scrollDir = (st > lastScrollTop) ? 'down' : 'up';
+        scrollDir = (st >= lastScrollTop) ? 'down' : 'up';
         lastScrollTop = st;
         if(!active){
             stickyHeight = parseInt($element.outerHeight(true));
@@ -129,8 +129,14 @@
 
             menuSize = $('.' + itemClass).size();
         }
-
         $(window).on('scroll.stickUp', baseScrollHandlerFn);
         $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
+        
+        //initial round ;-)
+        baseScrollHandlerFn({target:window});
+        stickUpScrollHandlerFn({target:document});
+        
+        //chainability
+        return this;
     };
 }(jQuery,window,document));
