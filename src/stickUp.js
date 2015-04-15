@@ -36,18 +36,17 @@
         }
     },
 
-    baseScrollHandlerFn = function(event) {
+    stickUpScrollHandlerFn = function(event) {
         var st = $(event.target).scrollTop();
         scrollDir = (st >= lastScrollTop) ? 'down' : 'up';
+        console.log("______");
+        console.log(scrollDir);
         scrollDistance = Math.abs(lastScrollTop-st);
         lastScrollTop = st;
         if(!active){
             stickyHeight = parseInt($element.outerHeight(true));
             top = parseInt($element.offset().top);
         }
-    },
-     
-    stickUpScrollHandlerFn = function() {
         var scroll = parseInt($(document).scrollTop());
         if (menuSize != null && content.length > 0) {
             for (var i = 0; i < menuSize; i++) {
@@ -77,14 +76,10 @@
                 var maxTop = $element.outerHeight();
                 if (scrollDir === 'up') {
                    var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
-                   window.requestAnimationFrame(function(){
-                      $element.css('top',newTopValue+'px'); 
-                   }); 
+                    $element.css('top',newTopValue+'px'); 
                 }else if(scrollDir === "down" && topValue > -maxTop){
                    var newTopValue = scrollDistance > maxTop+topValue ? -maxTop : topValue - scrollDistance;
-                   window.requestAnimationFrame(function(){
-                      $element.css('top',newTopValue+'px'); 
-                   }); 
+                    $element.css('top',newTopValue+'px'); 
                 }
             }
         }
@@ -147,11 +142,8 @@
 
             menuSize = $('.' + itemClass).size();
         }
-        $(window).on('scroll.stickUp', baseScrollHandlerFn);
         $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
-        
         //initial round ;-)
-        baseScrollHandlerFn({target:window});
         stickUpScrollHandlerFn({target:document});
         
         //chainability
