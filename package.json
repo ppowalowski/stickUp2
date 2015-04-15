@@ -1,0 +1,12 @@
+{
+  "name": "stickUp",
+  "version": "1.0.1",
+  "main": "src/stickUp.js",
+  "description": "",
+  "author": "Jorge Garcia",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-concat": "^2.3.4",
+    "gulp-uglify": "^0.3.1"
+  }
+}
