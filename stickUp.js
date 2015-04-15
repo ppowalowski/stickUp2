@@ -94,23 +94,24 @@
                 }
             }
         }
-
+        
 
 
         if (vartop < varscroll + topMargin) {
-            $('.stuckMenu').addClass('isStuck');
-            $('.stuckMenu').next().closest('div').css({
-                'margin-top': stickyHeight + stickyMarginB + currentMarginT + 'px'
-            }, 10);
-            $('.stuckMenu').css("position", "fixed");
-            $('.isStuck').css({
-                top: '0px'
-            }, 10, function () {
+            if(!$('.stuckMenu').hasClass('isStuck')){
+                $('.stuckMenu').addClass('isStuck');
+                $('.stuckMenu').next().closest('div').css({
+                   'margin-top': stickyHeight + stickyMarginB + currentMarginT + 'px'
+                }, 10);
+                $('.stuckMenu').css("position", "fixed");
+                $('.isStuck').css({
+                    top: '0px'
+                }, 10, function () {
 
-            });
-        };
-
-        if (varscroll + topMargin < vartop) {
+                });
+            }
+        }
+        if (varscroll + topMargin < vartop && $('.stuckMenu').hasClass('isStuck')) {
             $('.stuckMenu').removeClass('isStuck');
             $('.stuckMenu').next().closest('div').css({
                 'margin-top': currentMarginT + 'px'
