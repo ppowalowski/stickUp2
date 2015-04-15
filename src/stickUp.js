@@ -1,4 +1,4 @@
-(function ($) {
+(function ($,window,document) {
     
     var contentTop = [],
     content = [],
@@ -7,19 +7,15 @@
     itemClass = '',
     itemHover = '',
     menuSize = null,
+    active = false,
     stickyHeight = 0,
-    stickyMarginB = 0,
     currentMarginT = 0,
     $element = $(),
     currentMarginT = 0,
     topMargin = 0,
     top,
-    vartop = 0,
-    varscroll = 0,
-    contentView = $(),
-    testView = $();
 
-    function getTopMargin(options) {
+    getTopMargin = function(options) {
         if (options.topMargin == 'auto') {
             return parseInt($('.stuckMenu').css('margin-top'));
         } else {
@@ -32,7 +28,84 @@
                 return 0;
             }
         }
-    }
+    },
+
+    baseScrollHandlerFn = function(event) {
+        var st = $(event.target).scrollTop();
+        scrollDir = (st > lastScrollTop) ? 'down' : 'up';
+        lastScrollTop = st;
+        if(!active){
+            stickyHeight = parseInt($element.outerHeight(true));
+            top = parseInt($element.offset().top);
+            currentMarginT = parseInt($element.next().closest('div').css('margin-top'));
+        }
+    },
+     
+    stickUpScrollHandlerFn = function() {
+        var scroll = parseInt($(document).scrollTop());
+        if (menuSize != null && content.length > 0) {
+            for (var i = 0; i < menuSize; i++) {
+                contentTop[i] = $('#' + content[i] + '').offset().top;
+                function bottomView(i) {
+                    var contentView = $('#' + content[i] + '').height() * .4;
+                    if (scroll > (contentTop[i] - contentView)) {
+                        setItemHover(i);
+                    } else if (scroll < 50) {
+                        setItemHover(0);
+                    }
+                }
+
+                if (scrollDir == 'down' && scroll > contentTop[i] - 50 && scroll < contentTop[i] + 50) {
+                    setItemHover(i);
+                }
+
+                if (scrollDir == 'up') {
+                    bottomView(i, contentTop[i]);
+                }
+            }
+        }
+        
+        //STICK IT
+        if (top < scroll + topMargin && !$element.hasClass('isStuck')) {
+            active = true;
+            window.requestAnimationFrame(function() {
+                $element
+                    .addClass('isStuck')
+                    .next()
+                    .closest('div')
+                    .css({
+                        'margin-top': stickyHeight + currentMarginT + 'px'
+                    });
+
+                $element.css("position", "fixed");
+
+                $element.css({ 
+                    top: '0px'
+                });
+            });
+        }
+        
+        //UNSTICK
+        if (scroll + topMargin < top && $element.hasClass('isStuck')) {
+            window.requestAnimationFrame(function() {
+                $element
+                    .removeClass('isStuck')
+                    .next()
+                    .closest('div')
+                    .css({
+                        'margin-top': currentMarginT + 'px'
+                    });
+
+                $element.css("position", "relative");
+            });
+            active = false;
+        }
+    },
+
+    setItemHover = function(position) {
+        $('.' + itemClass).removeClass(itemHover);
+        $('.' + itemClass + ':eq(' + position + ')').addClass(itemHover);
+    };
 
     $.fn.stickUp = function (options) {
         $element = $(this);
@@ -57,81 +130,7 @@
             menuSize = $('.' + itemClass).size();
         }
 
-        stickyHeight = parseInt($element.height());
-        stickyMarginB = parseInt($element.css('margin-bottom'));
-        currentMarginT = parseInt($element.next().closest('div').css('margin-top'));
-        top = parseInt($element.offset().top);
+        $(window).on('scroll.stickUp', baseScrollHandlerFn);
+        $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
     };
-
-    function baseScrollHandlerFn(event) {
-        var st = $(event.target).scrollTop();
-        scrollDir = (st > lastScrollTop) ? 'down' : 'up';
-        lastScrollTop = st;
-    }
-
-    function stickUpScrollHandlerFn() {
-        var scroll = parseInt($(document).scrollTop());
-        if (menuSize != null && content.length > 0) {
-            for (var i = 0; i < menuSize; i++) {
-                contentTop[i] = $('#' + content[i] + '').offset().top;
-                function bottomView(i) {
-                    var contentView = $('#' + content[i] + '').height() * .4;
-                    if (scroll > (contentTop[i] - contentView)) {
-                        setItemHover(i);
-                    } else if (scroll < 50) {
-                        setItemHover(0);
-                    }
-                }
-
-                if (scrollDir == 'down' && scroll > contentTop[i] - 50 && scroll < contentTop[i] + 50) {
-                    setItemHover(i);
-                }
-
-                if (scrollDir == 'up') {
-                    bottomView(i, contentTop[i]);
-                }
-            }
-        }
-
-        if (top < scroll + topMargin && !$element.hasClass('isStuck')) {
-
-            $element
-                .addClass('isStuck')
-                .next()
-                .closest('div')
-                .css({
-                    'margin-top': stickyHeight + stickyMarginB + currentMarginT + 'px'
-                }, 10);
-
-            $element.css("position", "fixed");
-
-            $element.css({ 
-                top: '0px'
-            }, 10, function () {
-
-            });
-        }
-
-        if (scroll + topMargin < top && $element.hasClass('isStuck')) {
-
-            $element
-                .removeClass('isStuck')
-                .next()
-                .closest('div')
-                .css({
-                    'margin-top': currentMarginT + 'px'
-                }, 10);
-
-            $element.css("position", "relative");
-        }
-    }
-
-    function setItemHover(position) {
-        $('.' + itemClass).removeClass(itemHover);
-        $('.' + itemClass + ':eq(' + position + ')').addClass(itemHover);
-    }
-
-    $(window).on('scroll', baseScrollHandlerFn);
-    $(document).on('scroll', stickUpScrollHandlerFn);
-
-}(jQuery));
+}(jQuery,window,document));
