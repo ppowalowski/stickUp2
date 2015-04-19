@@ -4,26 +4,26 @@
         content = [],
         lastScrollTop = 0,
         scrollDir = '',
-        itemClass = '',
         itemHover = '',
         menuSize = null,
         active = false,
         stickyHeight = 0,
+        outerHeight = 0,
         currentMarginT = 0,
         $element = $(),
-        currentMarginT = 0,
         topMargin = 0,
         offset = 0,
         scrollDistance = 0,
-        $placeholder = $('<div style="margin:0"></div>'),
+        $placeholder = $('<div style="margin:0; padding:0"></div>'),
         top,
         //defaults
         options = {
-            scrollHide: true
+            scrollHide: true,
+            topMargin: "auto"
         },
-        getTopMargin = function (options) {
-            if (options.topMargin == 'auto') {
-                return parseInt($('.stuckMenu').css('margin-top'));
+        getTopMargin = function () {
+            if (options.topMargin === 'auto') {
+                return parseInt($element.css('marginTop'));
             } else {
                 if (isNaN(options.topMargin) && options.topMargin.search("px") > 0) {
                     return parseInt(options.topMargin.replace("px", ""));
@@ -44,39 +44,18 @@
             // permanently measure initial sizes to avoid errors with loading images
             // and dynamic elements in document
             if (!active) {
-                stickyHeight = parseInt($element.outerHeight(true));
+                stickyHeight = parseInt($element.outerHeight()+topMargin);
+                outerHeight = parseInt($element.outerHeight(true));
                 top = parseInt($element.offset().top);
             }
 
-            // highlighting
-            if (menuSize != null && content.length > 0) {
-                for (var i = 0; i < menuSize; i++) {
-                    contentTop[i] = $('#' + content[i] + '').offset().top;
-                    function bottomView(i) {
-                        var contentView = $('#' + content[i] + '').height() * .4;
-                        if (scroll > (contentTop[i] - contentView)) {
-                            setItemHover(i);
-                        } else if (scroll < 50) {
-                            setItemHover(0);
-                        }
-                    }
-
-                    if (scrollDir == 'down' && scroll > contentTop[i] - 50 && scroll < contentTop[i] + 50) {
-                        setItemHover(i);
-                    }
-
-                    if (scrollDir == 'up') {
-                        bottomView(i, contentTop[i]);
-                    }
-                }
-            }
 
             // Google like reappearance on upward scroll
             if (options.scrollHide) {
-                offset = $element.outerHeight();
+                offset = stickyHeight;
                 if (active) {
                     var topValue = parseInt($element.css('top'));
-                    var maxTop = $element.outerHeight();
+                    var maxTop = stickyHeight;
                     if (scrollDir === 'up') {
                         var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
                         $element.css('top', newTopValue + 'px');
@@ -91,12 +70,13 @@
             if (top + offset < scroll + topMargin && !$element.hasClass('isStuck')) {
                 window.requestAnimationFrame(function () {
                     active = true;
-                    $element.before($placeholder.css('height', $element.outerHeight()));
+                    $element.before($placeholder.css('height', outerHeight));
                     $element.addClass('isStuck');
 
                     var topDistance = -offset;
 
                     $element.css({
+                        marginTop: topMargin,
                         position: "fixed",
                         top: topDistance + 'px'
                     });
@@ -104,47 +84,31 @@
             }
 
             //UNSTICK
-            if (scroll + topMargin < top && $element.hasClass('isStuck')) {
+            if (scroll + topMargin <= top && $element.hasClass('isStuck')) {
                 window.requestAnimationFrame(function () {
                     $placeholder.remove();
                     $element.removeClass('isStuck')
-                            .css({
-                                position: "relative",
-                                top: ""
-                            });
+                    .css({
+                        marginTop: "",
+                        position: "relative",
+                        top: ""
+                    });
 
                     active = false;
                 });
             }
-        },
-        setItemHover = function (position) {
-            $('.' + itemClass).removeClass(itemHover);
-            $('.' + itemClass + ':eq(' + position + ')').addClass(itemHover);
         };
         //init
         var initialize = function(elem,opts){
             $element = $(elem);
             // adding a class to users div
-            $element.addClass('stuckMenu');
+            $element.addClass('stuckElement');
             //getting options
-            var objn = 0;
             if (opts) {
                 $.extend(true, options, opts);
-                var parts = options.parts;
-                for (var key in  parts) {
-                    if (parts.hasOwnProperty(key)) {
-                        content[objn] = parts[objn];
-                        objn++;
-                    }
-                }
-
-                itemClass = options.itemClass;
-                itemHover = options.itemHover;
-
-                topMargin = (options.topMargin != null) ? getTopMargin(options) : 0;
-
-                menuSize = $('.' + itemClass).size();
             }
+            topMargin = (options.topMargin != null) ? getTopMargin() : 0;
+            
             $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
             //initial round ;-)
             stickUpScrollHandlerFn({target: document});
