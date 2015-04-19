@@ -16,6 +16,7 @@
         scrollDistance = 0,
         $placeholder = $('<div style="margin:0; padding:0"></div>'),
         top,
+        left,
         //defaults
         options = {
             scrollHide: true,
@@ -47,6 +48,7 @@
                 stickyHeight = parseInt($element.outerHeight()+topMargin);
                 outerHeight = parseInt($element.outerHeight(true));
                 top = parseInt($element.offset().top);
+                left = parseInt($element.offset().left);
             }
 
 
@@ -76,9 +78,12 @@
                     var topDistance = -offset;
 
                     $element.css({
+                        //maxWidth: parseInt($element.outerWidth()),
                         marginTop: topMargin,
                         position: "fixed",
-                        top: topDistance + 'px'
+                        top: topDistance + 'px',
+                        left: left,
+                        right: "auto",
                     });
                 });
             }
@@ -89,9 +94,12 @@
                     $placeholder.remove();
                     $element.removeClass('isStuck')
                     .css({
+                        maxWidth:"",
                         marginTop: "",
-                        position: "relative",
-                        top: ""
+                        position: "",
+                        top: "",
+                        left: "",
+                        right: ""
                     });
 
                     active = false;
