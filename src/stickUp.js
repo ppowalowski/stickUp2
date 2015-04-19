@@ -1,6 +1,5 @@
 (function ($, window, document) {
     var StickUp = function(elem, opts) {
-        console.log(this);
         var contentTop = [],
         content = [],
         lastScrollTop = 0,
@@ -146,10 +145,7 @@
 
                 menuSize = $('.' + itemClass).size();
             }
-            $(document).on('scroll.stickUp-' + Math.random() * 10, function (e) {
-                console.log($element.selector);
-                stickUpScrollHandlerFn(e);
-            });
+            $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
             //initial round ;-)
             stickUpScrollHandlerFn({target: document});
         };
