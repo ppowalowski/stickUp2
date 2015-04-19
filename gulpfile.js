@@ -3,9 +3,8 @@ var gulp = require('gulp'), //
     uglify = require('gulp-uglify');
 
 gulp.task('default', function () {
-    return gulp.src('stickUp.js')
+    return gulp.src('src/stickUp.js')
         .pipe(uglify())
         .pipe(concat('stickUp.min.js'))
-        .pipe(gulp.dest('build/js/'))
-        .pipe(gulp.dest('example/js/'));
+        .pipe(gulp.dest('build/js/'));
 });
