@@ -16,6 +16,8 @@
         $element = $(),
         topMargin = 0,
         offset = 0,
+        landscape = false,
+        portrait = false,
         $placeholder = $('<div style="margin-top:0;margin-bottom:0; padding:0"></div>'),
         $parent = $(),
         stickpoints = {
@@ -26,7 +28,7 @@
         left,
         //defaults
         options = {
-            scrollHide: false,
+            scrollHide: true,
             topMargin: "auto",
             forcestickTop: false,
             keepInWrapper: true,
@@ -53,21 +55,26 @@
             $element.removeClass('isStuck')
             .css({ 
                 maxWidth:"",
-                marginTop: topMargin, 
+                marginTop: "", 
+                marginLeft:"",
+                marginRight:"",
                 position: "",
                 top: "",
                 left: "", 
                 right: "",
+                bottom:"",
                 width: ""
             });
             active = false;
             bottom = false;
             hold = false;
+            if(options.syncPosition)
+                syncMargins();
         },
         holdIt = function(forceBottom){
             $element.before($placeholder.css('height', outerHeight));
             $element.css({
-                marginTop: 0,
+                marginTop: topMargin,
                 position: "absolute"
             });
             var offsetParent = $placeholder.offsetParent();
@@ -78,7 +85,6 @@
                         ($parent.offset().top + $parent.outerHeight())
                         - offsetParent.outerHeight()
                         - parseInt($parent.css("paddingBottom")); 
-                console.log('fu',offsetParent.outerHeight());
                 }else{
                     var bottomOffset = 
                         ($parent.offset().top + $parent.outerHeight()) //parent offset bottom
@@ -86,7 +92,6 @@
                       - parseInt($parent.css("paddingBottom")); //parent padding
                 }
             }
-            console.log('pp',$placeholder.position());
             $element.css({
                 top:"",
                 left:$placeholder.position().left,
@@ -131,10 +136,21 @@
                 $element.outerWidth($placeholder.outerWidth());
         },
         syncPosition = function(){
-            console.log($placeholder.offset().left);
+            //retrieve margin
             left = $placeholder.offset().left;
             if(left !== $element.offset().left);
                 $element.offset({'left':left});
+        },
+        syncMargins = function(){
+            //retrieve margin
+            $placeholder.css({
+                'margin-left':$element.css('margin-left'),
+                'margin-right':$element.css('margin-left')
+            });
+            $element.css({
+                 "margin-left" :$placeholder.css('margin-left'),
+                 "margin-right" :$placeholder.css('margin-right'),
+            });
         },
 
         stickUpScrollHandlerFn = function (event) {
@@ -145,16 +161,19 @@
             scrollBottom = scroll+viewportHeight;
             lastScrollTop = scroll;
             elementOffset = $element.offset().top;
+            stickyHeight = parseInt($element.outerHeight()+topMargin)+parseInt($element.css('marginBottom'));
 			if (!active) {
-                stickyHeight = parseInt($element.outerHeight()+topMargin);
                 outerHeight = parseInt($element.outerHeight(true));
                 if(!bottom && !hold)
                     stickpoints.top = parseInt($element.offset().top);
-                stickpoints.top = parseInt($placeholder.offset().top)
+                else
+                stickpoints.top = parseInt($placeholder.offset().top);
                 left = parseInt($element.offset().left)+5;
             }
             if(options.keepInWrapper)
                 stickpoints.bottom = $parent.offset().top+$parent.outerHeight()-parseInt($parent.css('paddingBottom'));
+            else
+                stickpoints.bottom = $('body').outerHeight().top-$('body').css('paddingBottom');
             elementOffsetBottom = $element.offset().top+outerHeight;
             
 //            console.log(elementOffsetBottom);
@@ -162,22 +181,12 @@
 //            console.log(stickpoints.bottom);
             
             
-            // Google like reappearance on upward scroll
-            if (options.scrollHide) {
-                offset = stickyHeight;
-                if (active) {
-                    var topValue = parseInt($element.css('top'));
-                    var maxTop = stickyHeight;
-                    if (scrollDir === 'up') {
-                        var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
-                        $element.css('top', newTopValue + 'px');
-                    } else if (scrollDir === "down" && topValue > -maxTop) {
-                        var newTopValue = scrollDistance > maxTop + topValue ? -maxTop : topValue - scrollDistance;
-                        $element.css('top', newTopValue + 'px');
-                    }
-                }
-            }
             if(stickyHeight>viewportHeight){
+                portrait = true;
+                if(landscape){
+                    holdIt();
+                    landscape = false;
+                }
                 if( hold && scrollDir === 'up' && scroll <= elementOffset - topMargin){
                     console.log('sticktop');
                     stickIt();
@@ -216,7 +225,27 @@
                     hold = true;
                 }
             }else{
-                if(!hold && !active && scroll >= elementOffset - topMargin 
+                landscape = true;
+                if(portrait){
+                    holdIt();
+                    portrait = false;
+                }
+                // Google like reappearance on upward scroll
+                if (options.scrollHide) {
+                    offset = stickyHeight;
+                    if (active) {
+                        var topValue = parseInt($element.css('top'));
+                        var maxTop = stickyHeight;
+                        if (scrollDir === 'up') {
+                            var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
+                            $element.css('top', newTopValue + 'px');
+                        } else if (scrollDir === "down" && topValue > -maxTop) {
+                            var newTopValue = scrollDistance > maxTop + topValue ? -maxTop : topValue - scrollDistance;
+                            $element.css('top', newTopValue + 'px');
+                        }
+                    }
+                }
+                if((!active || bottom) && scroll >= stickpoints.top - topMargin + offset 
                 || bottom && hold && scroll <= elementOffset - topMargin){
                     console.log('sticktop');
                     stickIt();
@@ -225,8 +254,8 @@
                     hold = false;
                 }
                 //FORCE BOTTOM
-                if( !bottom && !hold && options.keepInWrapper 
-                && scroll >= stickpoints.bottom - outerHeight - topMargin){
+                if( !bottom && options.keepInWrapper 
+                && scroll >= stickpoints.bottom - outerHeight + offset){
                     console.log('forceBottom');
                     holdIt(true);
                     active = false;
@@ -235,7 +264,7 @@
                 }
             }
             //UNSTICK
-            if (scroll <= stickpoints.top) {
+            if ((active || hold || bottom) && scroll <= stickpoints.top - topMargin) {
                 console.log('unstick');
                 unStick();
             }
@@ -244,12 +273,15 @@
 				syncWidth();
             
             //Special cases which need a specified position like margin:0 centered elements
-            if(options.syncPosition && active && !hold)
+            if(options.syncPosition && active || hold)
 				syncPosition();
-            console.log("active ",active,"hold ",hold,"bottom ",bottom)
+            //console.log("active ",active,"hold ",hold,"bottom ",bottom);
         },
         stickUpResponsiveHandlerFn = function(event){
-            stickUpScrollHandlerFn({target: document});
+            if(hold)
+                holdIt();
+            console.log('reize');
+                stickUpScrollHandlerFn(event);
 
         };
         //init
@@ -275,23 +307,12 @@
                 $element.css('z-index',options.zIndex);
             
             if(syncPosition){
-                //retrieve margin
-                $placeholder.css({
-                   'margin-left':$element.css('margin-left'),
-                   'margin-right':$element.css('margin-left')
-                });
-                $element.css({
-                    "margin-left" :$placeholder.css('margin-left'),
-                    "margin-right" :$placeholder.css('margin-right'),
-                });
+                syncMargins();
             }
             
             
             $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
-            $(window).on('resize.stickUp', function(e){
-                console.log('reize');
-                stickUpScrollHandlerFn(e);
-            });
+            $(window).on('resize.stickUp', stickUpResponsiveHandlerFn);
             //initial round ;-)
             stickUpScrollHandlerFn({target: document});
         };
