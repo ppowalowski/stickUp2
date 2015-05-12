@@ -2236,8 +2236,23 @@ header, .white-text {
   .hipster-button:hover, .hipster-button:focus {
     color: #c10029; }
 
+.sticky-menu {
+  overflow: auto; }
+
 .placeholder {
   height: 120vh; }
+
+.sidebars {
+  text-align: center; }
+  .sidebars .sidebar {
+    position: relative; }
+  .sidebars .alert {
+    border: 2px solid #c10029;
+    color: #c10029;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; }
 
 pre {
   margin-bottom: 1.25rem;

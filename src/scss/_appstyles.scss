@@ -31,9 +31,25 @@ $hipster-thickness: 2px;
     @include hipster-button($primary-color);
 }
 $standard-distance: rem-calc(32);
-
+.sticky-menu{
+    overflow:auto;
+}
 .placeholder{
     height:120vh;
+}
+.sidebars{
+    text-align:center;
+    .sidebar{
+        position:relative;
+    }
+    .alert{
+        border:2px solid $primary-color;
+        color:$primary-color;
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+    }
 }
 pre{
     margin-bottom:$paragraph-margin-bottom;

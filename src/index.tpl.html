@@ -31,10 +31,8 @@
             </section>
         </header>
         <section title=".sticky-menu" class="sticky-menu text-center">
-            <div class="panel clearfix">
-                <div class="columns">
-                    <h3>I can stick this <small>(reappears on scrollup)</small></h3>
-                </div>
+            <div class="panel">
+                <h3>I can stick this <small>(reappears on scrollup)</small></h3>
             </div>
         </section>
         <section class="row container">
@@ -69,12 +67,15 @@ $('.sticky-menu').stickUp({
                     <%=content%>
                 </p>
             </div>
-            <div class="columns medium-4 show-for-medium-up">
+            <div class="columns sidebars medium-4 show-for-medium-up">
                 <div class="columns medium-6">
                     <div title=".sidebar" class="sidebar panel">
                         <h3>
                             Side
                         </h3>
+                        <div class="alert">
+                            i stick here
+                        </div>
                     </div>
                 </div>
                 <div class="columns medium-6">
