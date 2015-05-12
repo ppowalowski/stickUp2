@@ -26,16 +26,17 @@
             custom:[]
         },
         left,
+        
         //defaults
         options = {
-            scrollHide: true,
+            scrollHide: false,
             topMargin: "auto",
-            forcestickTop: false,
-            keepInWrapper: true,
+            keepInWrapper: false,
             wrapperSelector: '',
             zIndex: 99,
             syncPosition:false
         },
+                
         getTopMargin = function () {
             if (options.topMargin === 'auto') {
                 return parseInt($element.css('marginTop'));
@@ -50,6 +51,7 @@
                 }
             }
         },
+                
         unStick = function(){
             $placeholder.remove();
             $element.removeClass('isStuck')
@@ -71,31 +73,40 @@
             if(options.syncPosition)
                 syncMargins();
         },
+                
         holdIt = function(forceBottom){
             $element.before($placeholder.css('height', outerHeight));
-            $element.css({
-                marginTop: topMargin,
-                position: "absolute"
-            });
+//            $element.css({
+//                marginTop: topMargin,
+//                position: "absolute"
+//            });
             var offsetParent = $placeholder.offsetParent();
             
             if (forceBottom){
-                if (offsetParent.is('body')){
-                    var  bottomOffset = 
-                        ($parent.offset().top + $parent.outerHeight())
-                        - offsetParent.outerHeight()
-                        - parseInt($parent.css("paddingBottom")); 
-                }else{
-                    var bottomOffset = 
-                        ($parent.offset().top + $parent.outerHeight()) //parent offset bottom
-                      - (offsetParent.offset().top + offsetParent.outerHeight()) //offsetparent offset bottom
-                      - parseInt($parent.css("paddingBottom")); //parent padding
-                }
+                var topOffset = 
+                    ($parent.offset().top + $parent.outerHeight())
+                    - offsetParent.offset().top - outerHeight - topMargin
+                    - parseInt($parent.css("paddingBottom"));
+//                if (offsetParent.is('body')){
+//                    var  bottomOffset = 
+//                        ($parent.offset().top + $parent.outerHeight())
+//                        - offsetParent.outerHeight()
+//                        - parseInt($parent.css("paddingBottom")); 
+//                }else{
+//                    var bottomOffset = 
+//                        ($parent.offset().top + $parent.outerHeight()) //parent offset bottom
+//                      - (offsetParent.offset().top + offsetParent.outerHeight()) //offsetparent offset bottom
+//                      - parseInt($parent.css("paddingBottom")); //parent padding
+//                }
             }
+            console.log($element.offset().top);
             $element.css({
-                top:"",
+                marginTop: topMargin,
+                position: "absolute",
+                bottom:"",
                 left:$placeholder.position().left,
-                bottom: forceBottom? -bottomOffset : - (elementOffsetBottom - topMargin - (offsetParent.offset().top + offsetParent.outerHeight()))
+//                bottom: forceBottom? -bottomOffset : - (elementOffsetBottom - topMargin - (offsetParent.offset().top + offsetParent.outerHeight()))
+                top: forceBottom? topOffset : $element.offset().top - offsetParent.offset().top - topMargin
             });
         },
         stickIt = function(){
@@ -162,7 +173,7 @@
             lastScrollTop = scroll;
             elementOffset = $element.offset().top;
             stickyHeight = parseInt($element.outerHeight()+topMargin)+parseInt($element.css('marginBottom'));
-			if (!active) {
+			if (!active && !hold && !bottom) {
                 outerHeight = parseInt($element.outerHeight(true));
                 if(!bottom && !hold)
                     stickpoints.top = parseInt($element.offset().top);
@@ -175,11 +186,6 @@
             else
                 stickpoints.bottom = $('body').outerHeight().top-$('body').css('paddingBottom');
             elementOffsetBottom = $element.offset().top+outerHeight;
-            
-//            console.log(elementOffsetBottom);
-//            console.log(scrollBottom);
-//            console.log(stickpoints.bottom);
-            
             
             if(stickyHeight>viewportHeight){
                 portrait = true;
@@ -194,9 +200,9 @@
                     bottom = false;
                     hold = false;
                 }
-                if( (hold || !active) && !bottom
+                if( !active && !bottom
                 && (!options.keepInWrapper || options.keepInWrapper && scrollBottom <= stickpoints.bottom)
-                && scrollBottom >= elementOffsetBottom - topMargin
+                && scrollBottom >= elementOffsetBottom// - topMargin
                 ){
                     console.log('stickAtBottom');
                     stickAtBottom();
@@ -216,7 +222,7 @@
                 //FORCE BOTTOM
                 if(!bottom && !hold && options.keepInWrapper 
                 && scrollBottom >= stickpoints.bottom 
-                || elementOffsetBottom - topMargin > stickpoints.bottom
+                || elementOffsetBottom > stickpoints.bottom
                 || scrollBottom >= stickpoints.bottom && elementOffsetBottom < stickpoints.bottom){
                     console.log('forceBottom');
                     holdIt(true);
@@ -245,7 +251,7 @@
                         }
                     }
                 }
-                if((!active || bottom) && scroll >= stickpoints.top - topMargin + offset 
+                if(!active && !bottom && scroll >= stickpoints.top - topMargin + offset 
                 || bottom && hold && scroll <= elementOffset - topMargin){
                     console.log('sticktop');
                     stickIt();
@@ -255,7 +261,7 @@
                 }
                 //FORCE BOTTOM
                 if( !bottom && options.keepInWrapper 
-                && scroll >= stickpoints.bottom - outerHeight + offset){
+                && scroll >= stickpoints.bottom - outerHeight - topMargin + offset){
                     console.log('forceBottom');
                     holdIt(true);
                     active = false;
