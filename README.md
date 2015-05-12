@@ -67,6 +67,8 @@ options: boolean
 + with default positioning (not `fixed, absolute`)
 + without floating
 + without margins, paddings or positioning as inline style
++ when encountering issues watch out for collapsing margins 
+(margins outside parent). fix with `overflow:auto`
 
 ### Known Issues
 + Stuckup has issues dealing with elements centered by `margin:auto`.
