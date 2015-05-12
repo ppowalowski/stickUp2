@@ -1,0 +1,21 @@
+/* all app scss styles here */
+.placeholder{
+    height:120vh;
+}
+pre{
+    margin-bottom:$paragraph-margin-bottom;
+}
+.sidebar{
+    min-height:110vh;
+}
+.sidebar-1{
+    min-height:60vh;
+}
+code{
+    line-height:1.5;
+    display:inline-block;
+    border:none;
+}
+.panel{
+    background:lightgrey;
+}

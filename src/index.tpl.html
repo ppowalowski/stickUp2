@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>StickUp</title>
+        <!-- build:css css/libraries.min.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css css/app.min.css -->
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/app_override.css">
+        <!-- endbuild -->
+        <!-- build:js js/vendor/modernizr.min.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!--<div style="height:5900px; float:left; width:0;"></div>-->
+        <header class="row">
+            <div class="columns text-center">
+                <h1>
+                    StickUp
+                </h1>
+            </div>
+        </header>
+        <section class="sticky-menu text-center">
+            <div class="panel clearfix">
+                <div class="columns">
+                    <h3>I can stick this <small>(reappears on scrollup)</small></h3>
+                </div>
+            </div>
+        </section>
+        <section class="row container">
+            <div class="columns text-center">
+                <h3>
+                    Container
+                </h3>
+            </div>
+            <div role="main" class="columns medium-8 content">
+                <div class="row">
+                    <div class="columns small-6">
+                        <div class="sticky-keep panel">
+                            Sticky caught in .row
+                        </div>
+                    </div>
+                    <div class="columns small-6">
+                        <div class="sticky-content panel">
+                            Sticky not caught
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <%=content%>
+                </p>
+            </div>
+            <div class="columns medium-4 show-for-medium-up">
+                <div class="columns medium-6">
+                    <div class="sidebar panel">
+                        <h3>
+                            Side
+                        </h3>
+                    </div>
+                </div>
+                <div class="columns medium-6">
+                    <div class="sidebar-1 panel">
+                        <h3>
+                            Side-1
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="placeholder">
+        </section>
+        <footer class="text-center">
+            <a href="#">Back to Top</a>
+        </footer>
+
+        <!-- build:js js/vendor/libraries.min.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:js js/stickUp.min.js -->
+        <script src="stickUp/src/stickUp.js"></script>
+        <!-- endbuild -->
+        <!-- build:js js/app.min.js -->
+        <script src="js/app.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
