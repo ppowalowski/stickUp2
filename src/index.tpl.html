@@ -17,15 +17,20 @@
         <!-- endbuild -->
     </head>
     <body>
-        <!--<div style="height:5900px; float:left; width:0;"></div>-->
-        <header class="row">
-            <div class="columns text-center">
-                <h1>
-                    StickUp
-                </h1>
-            </div>
+        <a id="top"></a>
+        <header>
+            <section class="row">
+                <div class="columns text-center">
+                    <h1>
+                        StickUp
+                    </h1>
+                    <p>Easily stick elements to top of viewport while scrolling<p>
+                    <a class="button" href="https://github.com/ppowalowski/stickUp">stickUp on GitHub</a>
+                    <a class="button" href="#content">try</a>
+                </div>
+            </section>
         </header>
-        <section class="sticky-menu text-center">
+        <section title=".sticky-menu" class="sticky-menu text-center">
             <div class="panel clearfix">
                 <div class="columns">
                     <h3>I can stick this <small>(reappears on scrollup)</small></h3>
@@ -39,32 +44,41 @@
                 </h3>
             </div>
             <div role="main" class="columns medium-8 content">
+                <h3>for the hurried</h3>
+                <pre>
+<code>
+$('.sticky-menu').stickUp({
+    scrollHide:true
+});</code>
+                </pre>
                 <div class="row">
                     <div class="columns small-6">
-                        <div class="sticky-keep panel">
-                            Sticky caught in .row
+                        <div title=".sticky-keep" class="sticky-keep panel">
+                            Sticky caught in .row <br>
+                            with custom topMargin
                         </div>
                     </div>
                     <div class="columns small-6">
-                        <div class="sticky-content panel">
+                        <div title=".sticky-content" class="sticky-content panel">
                             Sticky not caught
                         </div>
                     </div>
                 </div>
+                <a id="content"></a>
                 <p>
                     <%=content%>
                 </p>
             </div>
             <div class="columns medium-4 show-for-medium-up">
                 <div class="columns medium-6">
-                    <div class="sidebar panel">
+                    <div title=".sidebar" class="sidebar panel">
                         <h3>
                             Side
                         </h3>
                     </div>
                 </div>
                 <div class="columns medium-6">
-                    <div class="sidebar-1 panel">
+                    <div title=".sidebar-1" class="sidebar-1 panel">
                         <h3>
                             Side-1
                         </h3>
@@ -75,7 +89,7 @@
         <section class="placeholder">
         </section>
         <footer class="text-center">
-            <a href="#">Back to Top</a>
+            <a class="hipster-button" href="#top">Back to Top</a>
         </footer>
 
         <!-- build:js js/vendor/libraries.min.js -->
@@ -84,6 +98,7 @@
         <script src="bower_components/fastclick/lib/fastclick.js"></script>
         <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
         <!-- endbower -->
+        <script src="bower_components/smoothScroll/src/jquery.smoothscroll.js"></script>
         <!-- endbuild -->
         <!-- build:js js/stickUp.min.js -->
         <script src="stickUp/src/stickUp.js"></script>

@@ -9,15 +9,20 @@
         <script src="js/vendor/modernizr.min.js"></script>
     </head>
     <body>
-        <!--<div style="height:5900px; float:left; width:0;"></div>-->
-        <header class="row">
-            <div class="columns text-center">
-                <h1>
-                    StickUp
-                </h1>
-            </div>
+        <a id="top"></a>
+        <header>
+            <section class="row">
+                <div class="columns text-center">
+                    <h1>
+                        StickUp
+                    </h1>
+                    <p>Easily stick elements to top of viewport while scrolling<p>
+                    <a class="button" href="https://github.com/ppowalowski/stickUp">stickUp on GitHub</a>
+                    <a class="button" href="#content">try</a>
+                </div>
+            </section>
         </header>
-        <section class="sticky-menu text-center">
+        <section title=".sticky-menu" class="sticky-menu text-center">
             <div class="panel clearfix">
                 <div class="columns">
                     <h3>I can stick this <small>(reappears on scrollup)</small></h3>
@@ -31,25 +36,34 @@
                 </h3>
             </div>
             <div role="main" class="columns medium-8 content">
+                <h3>for the hurried</h3>
+                <pre>
+<code>
+$('.sticky-menu').stickUp({
+    scrollHide:true
+});</code>
+                </pre>
                 <div class="row">
                     <div class="columns small-6">
-                        <div class="sticky-keep panel">
-                            Sticky caught in .row
+                        <div title=".sticky-keep" class="sticky-keep panel">
+                            Sticky caught in .row <br>
+                            with custom topMargin
                         </div>
                     </div>
                     <div class="columns small-6">
-                        <div class="sticky-content panel">
+                        <div title=".sticky-content" class="sticky-content panel">
                             Sticky not caught
                         </div>
                     </div>
                 </div>
+                <a id="content"></a>
                 <p>
                     <h1 id="stickup">stickUp</h1>
 <p>a jQuery plugin</p>
 <p>A simple plugin that &quot;sticks&quot; elements to the top of the browser window while 
 scrolling past it. For better experience it optionally offers autohide with 
 reappearence after scrolling up.</p>
-<p>Please Visit the <a href="http://lirancohen.github.io/stickUp">GitHub Page</a> 
+<p>Please Visit the <a href="http://ppowakiwski.github.io/stickUp">GitHub Page</a> 
 for installation instructions.</p>
 <h3 id="updated-version">Updated version</h3>
 <p>This version contains a major code cleanup with several improvements</p>
@@ -84,7 +98,21 @@ options: &#39;selector&#39;
 forces stickUp to synchronize left position<br>(use if positioning needed for example with margin auto)</p>
 <pre><code>default: false
 options: boolean
-</code></pre><h2 id="wanted-contribution">WANTED: Contribution</h2>
+</code></pre><h3 id="requirements-troubleshooting">Requirements &amp; Troubleshooting</h3>
+<ul>
+<li>sticked elements need to be blocks</li>
+<li>with default positioning (not <code>fixed, absolute</code>)</li>
+<li>without floating</li>
+<li>without margins, paddings or positioning as inline style</li>
+</ul>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li>Stuckup has issues dealing with elements centered by <code>margin:auto</code>.
+This issue was consciously accepted due to js shortcomings in proper
+detection of <code>margin:auto</code>. With <code>syncPosition:true</code> it should work
+with the limitation of recalculation issues while resizing</li>
+</ul>
+<h2 id="wanted-contribution">WANTED: Contribution</h2>
 <h5 id="tests">Tests</h5>
 <ul>
 <li>test environment needed to avoid manual testing failure</li>
@@ -103,14 +131,14 @@ options: boolean
             </div>
             <div class="columns medium-4 show-for-medium-up">
                 <div class="columns medium-6">
-                    <div class="sidebar panel">
+                    <div title=".sidebar" class="sidebar panel">
                         <h3>
                             Side
                         </h3>
                     </div>
                 </div>
                 <div class="columns medium-6">
-                    <div class="sidebar-1 panel">
+                    <div title=".sidebar-1" class="sidebar-1 panel">
                         <h3>
                             Side-1
                         </h3>
@@ -121,7 +149,7 @@ options: boolean
         <section class="placeholder">
         </section>
         <footer class="text-center">
-            <a href="#">Back to Top</a>
+            <a class="hipster-button" href="#top">Back to Top</a>
         </footer>
 
         <script src="js/vendor/libraries.min.js"></script>

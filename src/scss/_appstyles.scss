@@ -1,9 +1,50 @@
 /* all app scss styles here */
+%white-text, .white-text{
+    color: $white;
+    a,a:hover,a:focus,p,li,h1,h2,h3,h4,h5,h6{
+        color:$white;
+    }
+}
+$hipster-thickness: 2px;
+%classy-button{
+    @include button($padding:$button-lrg);
+    @include single-transition($speed:100ms);
+    &.expand{
+        width:100%;
+    }
+    background:none;
+    border:$hipster-thickness solid transparent;
+    padding:$button-sml;
+    &:hover,&:focus{
+        background:none;
+    }
+}
+@mixin hipster-button($color:$secondary-color){
+  @extend %classy-button;
+  border-color:$color;
+  color:$color;
+  &:hover,&:focus{
+    color:$color;
+  }
+}
+.hipster-button{
+    @include hipster-button($primary-color);
+}
+$standard-distance: rem-calc(32);
+
 .placeholder{
     height:120vh;
 }
 pre{
     margin-bottom:$paragraph-margin-bottom;
+    background:$snow;
+    padding: $column-gutter/8 $column-gutter/2;
+    code{
+        line-height:1.5;
+        display:inline-block;
+        border:none;
+        background:none;
+    }
 }
 .sidebar{
     min-height:110vh;
@@ -11,11 +52,15 @@ pre{
 .sidebar-1{
     min-height:60vh;
 }
-code{
-    line-height:1.5;
-    display:inline-block;
-    border:none;
-}
-.panel{
-    background:lightgrey;
+header{
+    background:$primary-color;
+    @extend %white-text; 
+    padding: $standard-distance*2 0;
+    h2{
+        font-weight:normal;
+        margin-bottom:$paragraph-margin-bottom;
+    }
+    a.button{
+        @include hipster-button($white);
+    }
 }

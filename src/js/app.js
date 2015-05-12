@@ -6,29 +6,29 @@ var app = (function (document, $) {
                 docElem.setAttribute('data-useragent', navigator.userAgent);
             },
             _init = function () {
+                _userAgentInit();
                 $('.sticky-menu').stickUp({
                     scrollHide:true,
                     zIndex:100
                 });
                 $('.sticky-keep').stickUp({
-                    topMargin:100,
+                    topMargin:90,
                     keepInWrapper:true,
                     wrapperSelector:'.row.container'
                 });
                 $('.sticky-content').stickUp({
                     
                 });
-                $('.sidebar-1').stickUp({
-                    keepInWrapper:true,
-                    topMargin:120,
-                    wrapperSelector:'.row.container'
-                });
                 $('.sidebar').stickUp({
                     keepInWrapper:true,
-                    topMargin:120,
+                    topMargin:90,
                     wrapperSelector:'.row.container'
                 });
-                _userAgentInit();
+                $('.sidebar-1').stickUp({
+                    keepInWrapper:true,
+                    topMargin:90,
+                    wrapperSelector:'.row.container'
+                });
             };
     return {
         init: _init
