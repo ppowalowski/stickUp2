@@ -1,0 +1,5 @@
+
+[submodule "stickUp"]
+path = src/stickUp
+url = https://github.com/ppowalowski/stickUp.git
+branch = master
