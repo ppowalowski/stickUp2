@@ -56,12 +56,60 @@ $('.sticky-menu').stickUp({
                 </div>
                 <a id="content"></a>
                 <p>
-                    <h1 id="stickup-has-moved-to-stickup2">stickUp has moved to stickUp2</h1>
-<p>stickUp is s simple plugin that &quot;sticks&quot; elements to the top of the browser window while 
-scrolling past it. </p>
-<p>Please Visit the <a href="https://github.com/ppowalowski/stickUp2">Stickup2 Repository</a> 
-to find the latest version.</p>
-<p>The original implementation was found at<br>[LiranCohen repository](<a href="https://github.com/LiranCohen/stickUp">https://github.com/LiranCohen/stickUp</a></p>
+                    <h1 id="stickup2">stickUp2</h1>
+<p>a jQuery plugin</p>
+<p>A simple plugin that &quot;sticks&quot; elements to the top of the browser window while 
+scrolling past it. For better experience it optionally offers autohide with 
+reappearence after scrolling up.</p>
+<p>Please Visit the <a href="http://lirancohen.github.io/stickUp2">GitHub Page</a> 
+for installation instructions.</p>
+<h3 id="updated-version">Updated version</h3>
+<p>This version contains a major code cleanup with several improvements</p>
+<ul>
+<li>[+] multiple instances possible</li>
+<li>[+] sticky sidebar feature (with elements bigger than viewport)</li>
+<li>[+] fancy autohiding of sticked elements which reappear on scroll up</li>
+<li>[-] no more one pager highlighting features</li>
+</ul>
+<h2 id="configuration-options">Configuration options</h2>
+<h3 id="general">General</h3>
+<p><strong>scrollHide</strong>
+When ticked stickUp will keep the element hidden when scrolling past it but show 
+it immediatly when scrolling up again (like adressbar in Chrome for Android).
+This feature allows better screen space usage while offering the sleek UI 
+shortcut of standard sticking behavoiur.<br><strong>Only works with elements smaller than viewport.</strong></p>
+<pre><code>default: true
+options: integer
+</code></pre><p><strong>topMargin</strong>
+option to control margin of sticked element</p>
+<pre><code>default: &#39;auto&#39;
+options: &#39;auto&#39;, number, &#39;10px&#39;
+</code></pre><p><strong>keepInWrapper</strong>
+option to control wether the sticked element is caught in a wrapping container</p>
+<pre><code>default: false
+options: boolean
+</code></pre><p><strong>wrapperSelector</strong>
+selector of container to hold the sticky element<br>(only in conjunction with keepInWrapper)</p>
+<pre><code>default: &#39;&#39; // uses first parent if empty
+options: &#39;selector&#39;
+</code></pre><p><strong>syncPosition</strong>
+forces stickUp to synchronize left position<br>(use if positioning needed for example with margin auto)</p>
+<pre><code>default: false
+options: boolean
+</code></pre><h2 id="wanted-contribution">WANTED: Contribution</h2>
+<h5 id="tests">Tests</h5>
+<ul>
+<li>test environment needed to avoid manual testing failure</li>
+<li>test cases covering all special scenarios</li>
+</ul>
+<h5 id="events-api-architecture">Events / API / Architecture</h5>
+<ul>
+<li>emission of events on state change</li>
+<li>API to control status of stickUp</li>
+<li>rework jQuery plugin pattern (better module?)</li>
+<li>Angular directive</li>
+</ul>
+<p>The original (v1) implementation can be found at at<br>[LiranCohen repository](<a href="https://github.com/LiranCohen/stickUp">https://github.com/LiranCohen/stickUp</a></p>
 
                 </p>
             </div>
