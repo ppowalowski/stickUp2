@@ -185,7 +185,7 @@
             if(options.keepInWrapper)
                 stickpoints.bottom = $parent.offset().top+$parent.outerHeight()-parseInt($parent.css('paddingBottom'));
             else
-                stickpoints.bottom = $('body').outerHeight().top-$('body').css('paddingBottom');
+                stickpoints.bottom = $(document).outerHeight();
             elementOffsetBottom = $element.offset().top+currentOuterHeight;
             
             if(stickyHeight>viewportHeight){
@@ -221,11 +221,9 @@
                     hold = true;
                 }
                 //FORCE BOTTOM
-				console.log(scrollBottom >= stickpoints.bottom, elementOffsetBottom,stickpoints.bottom);
-                if(!bottom && !hold && options.keepInWrapper
-                && scrollBottom >= stickpoints.bottom  //scroll past stickpoint
-                || elementOffsetBottom-topMargin > stickpoints.bottom // or element past stickpoint
-                || (scrollBottom >= stickpoints.bottom && elementOffsetBottom-topMargin != stickpoints.bottom)){ // or scroll past stickpoint but element to high
+                if(scrollBottom >= stickpoints.bottom && options.keepInWrapper //scroll past stickpoint while keepInWrapper
+                && (!bottom && !hold //not applied yet
+                || parseInt(elementOffsetBottom-topMargin) !== parseInt(stickpoints.bottom))){ // or element past stickpoint
                     console.log('forceBottom');
                     holdIt(true);
                     active = false;
@@ -262,10 +260,10 @@
                     hold = false;
                 }
                 //FORCE BOTTOM
-                if( (!bottom && options.keepInWrapper 
-				|| bottom && !active && elementOffsetBottom != stickpoints.bottom)
+                if(options.keepInWrapper
+                && parseInt(elementOffsetBottom - topMargin) !== parseInt(stickpoints.bottom)
                 && scroll >= stickpoints.bottom - currentOuterHeight + offset){
-                    console.log('forceBottom');
+                    console.log('forceBottom p');
                     holdIt(true);
                     active = false;
                     bottom = true;
