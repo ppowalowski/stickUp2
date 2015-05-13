@@ -1,4 +1,11 @@
 /* all app scss styles here */
+/*
+ * DEV
+.row, .sidebars{
+border:1px solid blue;
+}*/
+
+
 %white-text, .white-text{
     color: $white;
     a,a:hover,a:focus,p,li,h1,h2,h3,h4,h5,h6{

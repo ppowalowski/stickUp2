@@ -2191,6 +2191,11 @@ th.hide-for-touch {
     display: none !important; } }
 
 /* all app scss styles here */
+/*
+ * DEV
+.row, .sidebars{
+border:1px solid blue;
+}*/
 header, .white-text {
   color: #FFFFFF; }
   header a, header a:hover, header a:focus, header p, header li, header h1, header h2, header h3, header h4, header h5, header h6, .white-text a, .white-text a:hover, .white-text a:focus, .white-text p, .white-text li, .white-text h1, .white-text h2, .white-text h3, .white-text h4, .white-text h5, .white-text h6 {
