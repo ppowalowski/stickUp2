@@ -1,4 +1,4 @@
-stickUp
+stickUp2
 =======
 a jQuery plugin
 
@@ -6,7 +6,7 @@ A simple plugin that "sticks" elements to the top of the browser window while
 scrolling past it. For better experience it optionally offers autohide with 
 reappearence after scrolling up.
 
-Please Visit the <a href="http://lirancohen.github.io/stickUp">GitHub Page</a> 
+Please Visit the <a href="http://lirancohen.github.io/stickUp2">GitHub Page</a> 
 for installation instructions.
 
 ### Updated version
@@ -74,5 +74,5 @@ options: boolean
 + rework jQuery plugin pattern (better module?)
 + Angular directive
 
-The original implementation is at  
+The original (v1) implementation can be found at at  
 [LiranCohen repository](https://github.com/LiranCohen/stickUp
