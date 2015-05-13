@@ -74,5 +74,7 @@ options: boolean
 + rework jQuery plugin pattern (better module?)
 + Angular directive
 
-The original (v1) implementation can be found at at  
+The original (v1) implementation can be found at 
 [LiranCohen repository](https://github.com/LiranCohen/stickUp
+
+stickUp2 is a substantial rebuild and published under MIT
