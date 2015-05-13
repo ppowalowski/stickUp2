@@ -6,7 +6,7 @@ A simple plugin that "sticks" elements to the top of the browser window while
 scrolling past it. For better experience it optionally offers autohide with 
 reappearence after scrolling up.
 
-Please Visit the <a href="http://lirancohen.github.io/stickUp2">GitHub Page</a> 
+Please Visit the <a href="http://ppowalowski.github.io/stickUp2">GitHub Page</a> 
 for installation instructions.
 
 ### Updated version
