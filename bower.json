@@ -1,0 +1,45 @@
+{
+  "name": "stickUp",
+  "homepage": "https://ppowalowski.github.io/stickUp2",
+  "authors": [
+    "Patrik Powalowski <patrik@powalowski.de>"
+  ],
+  "description": "Easily stick elements (like menus, sidebars) to top of viewport while scrolling.",
+  "main": "build/js/stickUp.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppowalowski/stickUp2"
+  },
+  "keywords": [
+    "sticky",
+    "js",
+    "pin",
+    "jquery-plugin",
+    "responsive,
+    "menu",
+    "navigation",
+    "fixed",
+    "stick",
+    "sidebar",
+    "ui",
+    "jquery",
+    "plugin",
+    "scrolling",
+    "scroll",
+    "UI",
+    "DOM",
+    "web",
+    "front-end"
+  ],
+  "licenses": "MIT, GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests",
+    "gulpfile.js"
+  ]
+  "dependencies": {
+    "jquery": ">= 1.9.1"
+  }
+}
