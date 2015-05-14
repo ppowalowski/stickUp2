@@ -15,7 +15,7 @@
     "js",
     "pin",
     "jquery-plugin",
-    "responsive,
+    "responsive",
     "menu",
     "navigation",
     "fixed",
@@ -38,7 +38,7 @@
     "test",
     "tests",
     "gulpfile.js"
-  ]
+  ],
   "dependencies": {
     "jquery": ">= 1.9.1"
   }
