@@ -31,6 +31,7 @@
         //defaults
         options = {
             scrollHide: false,
+            lazyHeight: 0,
             topMargin: "auto",
             keepInWrapper: false,
             wrapperSelector: '',
@@ -76,14 +77,13 @@
         },
                 
         holdIt = function(forceBottom){
-            $element.css({
-                marginTop: topMargin,
-                position: "absolute"
-            });
             $element.before($placeholder.css('height', outerHeight));
             var offsetParent = $placeholder.offsetParent();
             
             if (forceBottom){
+                $element.css({
+                    position: "absolute",
+                });
                 var topOffset = 
                     ($parent.offset().top + $parent.outerHeight()) //bottom of container
                     - offsetParent.offset().top - currentOuterHeight //parent-position - elementHeight
@@ -92,6 +92,8 @@
             void 0;
             void 0;
             $element.css({
+                position: "absolute",
+                marginTop: topMargin,
                 bottom:"",
                 left:$placeholder.position().left,
                 top: forceBottom? topOffset : $element.offset().top - offsetParent.offset().top - topMargin
@@ -225,22 +227,24 @@
                     portrait = false;
                 }
                 // Google like reappearance on upward scroll
-                if (options.scrollHide) {
-                    offset = stickyHeight;
-                    if (active) {
-                        var topValue = parseInt($element.css('top'));
-                        var maxTop = stickyHeight;
-                        if (scrollDir === 'up') {
-                            var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
-                            $element.css('top', newTopValue + 'px');
-                        } else if (scrollDir === "down" && topValue > -maxTop) {
-                            var newTopValue = scrollDistance > maxTop + topValue ? -maxTop : topValue - scrollDistance;
-                            $element.css('top', newTopValue + 'px');
-                        }
+                if (options.scrollHide)
+                    offset = stickyHeight + options.lazyHeight; //negative offset for initial hiding
+                else
+                    offset = + options.lazyHeight;
+                
+                if (active) {
+                    var topValue = parseInt($element.css('top'));
+                    if (scrollDir === 'up' && topValue !== 0) {
+                        var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
+                        $element.css('top', newTopValue + 'px');
+                    } else if (scrollDir === "down" && topValue > -offset) {
+                        var newTopValue = scrollDistance > offset + topValue ? -offset : topValue - scrollDistance;
+                        $element.css('top', newTopValue + 'px');
                     }
                 }
+                
                 if(!active && !bottom && scroll >= stickpoints.top - topMargin + offset 
-                || bottom && hold && scroll <= elementOffset - topMargin){
+                || bottom && hold && scroll <= elementOffset - topMargin + offset){
                     void 0;
                     stickIt();
                     active = true;
@@ -289,6 +293,8 @@
                 $.extend(true, options, opts);
             } 
             topMargin = (options.topMargin != null) ? getTopMargin() : 0;
+            if(options.lazyHeight)
+                topMargin = topMargin + options.lazyHeight;
             if(options.keepInWrapper){
                 if(options.wrapperSelector !== '')
                     $parent = $element.closest(options.wrapperSelector);
