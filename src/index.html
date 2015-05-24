@@ -41,7 +41,7 @@
                     Container
                 </h3>
             </div>
-            <div role="main" class="columns medium-8 content">
+            <div role="main" class="columns medium-6 content">
                 <h3>for the hurried</h3>
                 <pre>
 <code>
@@ -88,6 +88,12 @@ This feature allows better screen space usage while offering the sleek UI
 shortcut of standard sticking behavoiur.<br><strong>Only works with elements smaller than viewport.</strong></p>
 <pre><code>default: true
 options: integer
+</code></pre><p><strong>lazyHeight</strong>
+Similar to scrollHide but not hiding element. It rather adds the set value while
+scrolling up. Good for streamlining appearance and avoid overlapping
+when introducing multiple sticky elements with one autoHiding at top.</p>
+<pre><code>default: 0
+options: integer
 </code></pre><p><strong>topMargin</strong>
 option to control margin of sticked element</p>
 <pre><code>default: &#39;auto&#39;
@@ -123,11 +129,12 @@ options: boolean
 
                 </p>
             </div>
-            <div class="columns sidebars medium-4 show-for-medium-up">
+            <div class="columns sidebars medium-6 show-for-medium-up">
                 <div class="columns medium-6">
                     <div title=".sidebar" class="sidebar panel">
                         <h3>
-                            Side
+                            Side<br/>
+                            <small>long</small>
                         </h3>
                         <div class="alert">
                             i stick here
@@ -138,6 +145,8 @@ options: boolean
                     <div title=".sidebar-1" class="sidebar-1 panel">
                         <h3>
                             Side-1
+                            <br/>
+                            <small>lazyHeight</small>
                         </h3>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ var app = (function (document, $) {
                     zIndex:100
                 });
                 $('.sticky-keep').stickUp({
-                    topMargin:90,
+                    topMargin:110,
                     keepInWrapper:true,
                     wrapperSelector:'.row.container'
                 });
@@ -21,12 +21,13 @@ var app = (function (document, $) {
                 });
                 $('.sidebar').stickUp({
                     keepInWrapper:true,
-                    topMargin:90,
+                    topMargin:110,
                     wrapperSelector:'.row.container'
                 });
                 $('.sidebar-1').stickUp({
                     keepInWrapper:true,
-                    topMargin:90,
+                    topMargin:20,
+                    lazyHeight: $('.sticky-menu').outerHeight(),
                     wrapperSelector:'.row.container'
                 });
             };
