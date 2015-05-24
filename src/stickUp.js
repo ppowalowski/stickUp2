@@ -76,14 +76,13 @@
         },
                 
         holdIt = function(forceBottom){
-            $element.css({
-                marginTop: topMargin,
-                position: "absolute"
-            });
             $element.before($placeholder.css('height', outerHeight));
             var offsetParent = $placeholder.offsetParent();
             
             if (forceBottom){
+                $element.css({
+                    position: "absolute",
+                });
                 var topOffset = 
                     ($parent.offset().top + $parent.outerHeight()) //bottom of container
                     - offsetParent.offset().top - currentOuterHeight //parent-position - elementHeight
@@ -92,6 +91,8 @@
             console.log($parent.offset().top + $parent.outerHeight());
             console.log(offsetParent.offset().top - currentOuterHeight);
             $element.css({
+                position: "absolute",
+                marginTop: topMargin,
                 bottom:"",
                 left:$placeholder.position().left,
                 top: forceBottom? topOffset : $element.offset().top - offsetParent.offset().top - topMargin
@@ -230,7 +231,7 @@
                     if (active) {
                         var topValue = parseInt($element.css('top'));
                         var maxTop = stickyHeight;
-                        if (scrollDir === 'up') {
+                        if (scrollDir === 'up' && topValue !== 0) {
                             var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
                             $element.css('top', newTopValue + 'px');
                         } else if (scrollDir === "down" && topValue > -maxTop) {
