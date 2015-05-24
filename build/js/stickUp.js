@@ -76,11 +76,11 @@
         },
                 
         holdIt = function(forceBottom){
+            $element.css({
+                marginTop: topMargin,
+                position: "absolute"
+            });
             $element.before($placeholder.css('height', outerHeight));
-//            $element.css({
-//                marginTop: topMargin,
-//                position: "absolute"
-//            });
             var offsetParent = $placeholder.offsetParent();
             
             if (forceBottom){
@@ -88,24 +88,12 @@
                     ($parent.offset().top + $parent.outerHeight()) //bottom of container
                     - offsetParent.offset().top - currentOuterHeight //parent-position - elementHeight
                     - parseInt($parent.css("paddingBottom"));
-//                if (offsetParent.is('body')){
-//                    var  bottomOffset = 
-//                        ($parent.offset().top + $parent.outerHeight())
-//                        - offsetParent.outerHeight()
-//                        - parseInt($parent.css("paddingBottom")); 
-//                }else{
-//                    var bottomOffset = 
-//                        ($parent.offset().top + $parent.outerHeight()) //parent offset bottom
-//                      - (offsetParent.offset().top + offsetParent.outerHeight()) //offsetparent offset bottom
-//                      - parseInt($parent.css("paddingBottom")); //parent padding
-//                }
             }
+            void 0;
+            void 0;
             $element.css({
-                marginTop: topMargin,
-                position: "absolute",
                 bottom:"",
                 left:$placeholder.position().left,
-//                bottom: forceBottom? -bottomOffset : - (elementOffsetBottom - topMargin - (offsetParent.offset().top + offsetParent.outerHeight()))
                 top: forceBottom? topOffset : $element.offset().top - offsetParent.offset().top - topMargin
             });
         },
