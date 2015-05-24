@@ -33,6 +33,15 @@ default: true
 options: integer
 ```
 
+**lazyHeight**
+Similar to scrollHide but not hiding element. It rather adds the set value while
+scrolling up. Good for streamlining appearance and avoid overlapping
+when introducing multiple sticky elements with one autoHiding at top.
+```
+default: 0
+options: integer
+```
+
 **topMargin**
 option to control margin of sticked element
 ```
