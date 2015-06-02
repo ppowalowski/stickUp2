@@ -232,17 +232,6 @@
                 else
                     offset = + options.lazyHeight;
                 
-                if (active) {
-                    var topValue = parseInt($element.css('top'));
-                    if (scrollDir === 'up' && topValue !== 0) {
-                        var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
-                        $element.css('top', newTopValue + 'px');
-                    } else if (scrollDir === "down" && topValue > -offset) {
-                        var newTopValue = scrollDistance > offset + topValue ? -offset : topValue - scrollDistance;
-                        $element.css('top', newTopValue + 'px');
-                    }
-                }
-                
                 if(!active && !bottom && scroll >= stickpoints.top - topMargin + offset 
                 || bottom && hold && scroll <= elementOffset - topMargin + offset){
                     console.log('sticktop');
@@ -260,6 +249,17 @@
                     active = false;
                     bottom = true;
                     hold = true;
+                }
+                //Calculate lazyHeight and autoHide
+                if (active) {
+                    var topValue = parseInt($element.css('top'));
+                    if (scrollDir === 'up' && topValue !== 0) {
+                        var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
+                        $element.css('top', newTopValue + 'px');
+                    } else if (scrollDir === "down" && topValue > -offset) {
+                        var newTopValue = scrollDistance > offset + topValue ? -offset : topValue - scrollDistance;
+                        $element.css('top', newTopValue + 'px');
+                    }
                 }
             }
             //UNSTICK
