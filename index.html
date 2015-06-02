@@ -73,33 +73,36 @@ for installation instructions.</p>
 </ul>
 <h2 id="configuration-options">Configuration options</h2>
 <h3 id="general">General</h3>
-<p><strong>scrollHide</strong>
-When ticked stickUp will keep the element hidden when scrolling past it but show 
+<p><strong>scrollHide</strong><br>When ticked stickUp will keep the element hidden when scrolling past it but show 
 it immediatly when scrolling up again (like adressbar in Chrome for Android).
 This feature allows better screen space usage while offering the sleek UI 
 shortcut of standard sticking behavoiur.<br><strong>Only works with elements smaller than viewport.</strong></p>
 <pre><code>default: true
 options: integer
-</code></pre><p><strong>lazyHeight</strong>
-Similar to scrollHide but not hiding element. It rather adds the set value while
+</code></pre><p><strong>lazyHeight</strong><br>Similar to scrollHide but not hiding element. It rather adds the set value while
 scrolling up. Good for streamlining appearance and avoid overlapping
 when introducing multiple sticky elements with one autoHiding at top.</p>
 <pre><code>default: 0
 options: integer
-</code></pre><p><strong>topMargin</strong>
-option to control margin of sticked element</p>
+</code></pre><p><strong>topMargin</strong><br>option to control margin of sticked element</p>
 <pre><code>default: &#39;auto&#39;
 options: &#39;auto&#39;, number, &#39;10px&#39;
-</code></pre><p><strong>keepInWrapper</strong>
-option to control wether the sticked element is caught in a wrapping container</p>
+</code></pre><p><strong>disableOn (&gt;2.2.0)</strong><br>Option to disable scrollUp if passed function returns false</p>
+<pre><code>default: &#39;function(){return true}&#39;
+options: function
+example: 
+function(){
+    if( $(window).width() &lt; 768 )
+        return false;
+    return true;
+}
+</code></pre><p><strong>keepInWrapper</strong><br>option to control wether the sticked element is caught in a wrapping container</p>
 <pre><code>default: false
 options: boolean
-</code></pre><p><strong>wrapperSelector</strong>
-selector of container to hold the sticky element<br>(only in conjunction with keepInWrapper)</p>
+</code></pre><p><strong>wrapperSelector</strong><br>selector of container to hold the sticky element<br>(only in conjunction with keepInWrapper)</p>
 <pre><code>default: &#39;&#39; // uses first parent if empty
 options: &#39;selector&#39;
-</code></pre><p><strong>syncPosition</strong>
-forces stickUp to synchronize left position<br>(use if positioning needed for example with margin auto)</p>
+</code></pre><p><strong>syncPosition</strong><br>forces stickUp to synchronize left position<br>(use if positioning needed for example with margin auto)</p>
 <pre><code>default: false
 options: boolean
 </code></pre><h2 id="wanted-contribution">WANTED: Contribution</h2>
