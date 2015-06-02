@@ -22,7 +22,7 @@ This version contains a major code cleanup with several improvements
 
 ###General
 
-**scrollHide**
+**scrollHide**  
 When ticked stickUp will keep the element hidden when scrolling past it but show 
 it immediatly when scrolling up again (like adressbar in Chrome for Android).
 This feature allows better screen space usage while offering the sleek UI 
@@ -33,7 +33,7 @@ default: true
 options: integer
 ```
 
-**lazyHeight**
+**lazyHeight**  
 Similar to scrollHide but not hiding element. It rather adds the set value while
 scrolling up. Good for streamlining appearance and avoid overlapping
 when introducing multiple sticky elements with one autoHiding at top.
@@ -42,21 +42,34 @@ default: 0
 options: integer
 ```
 
-**topMargin**
+**topMargin**  
 option to control margin of sticked element
 ```
 default: 'auto'
 options: 'auto', number, '10px'
 ```
 
-**keepInWrapper**
+**disableOn (>2.2.0)**  
+Option to disable scrollUp if passed function returns false
+```
+default: 'function(){return true}'
+options: function
+example: 
+function(){
+    if( $(window).width() < 768 )
+        return false;
+    return true;
+}
+```
+
+**keepInWrapper**  
 option to control wether the sticked element is caught in a wrapping container
 ```
 default: false
 options: boolean
 ```
 
-**wrapperSelector**
+**wrapperSelector**  
 selector of container to hold the sticky element  
 (only in conjunction with keepInWrapper)
 ```
@@ -64,7 +77,7 @@ default: '' // uses first parent if empty
 options: 'selector'
 ```
 
-**syncPosition**
+**syncPosition**  
 forces stickUp to synchronize left position  
 (use if positioning needed for example with margin auto)
 ```

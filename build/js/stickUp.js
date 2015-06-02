@@ -7,6 +7,9 @@
         active = false,
         bottom = false,
         hold = false,
+        disabled = false,
+        landscape = false,
+        portrait = false,
         stickyHeight = 0,
         outerHeight = 0,
 		currentOuterHeight = 0,
@@ -17,8 +20,6 @@
         $element = $(),
         topMargin = 0,
         offset = 0,
-        landscape = false,
-        portrait = false,
         $placeholder = $('<div style="margin-top:0;margin-bottom:0; padding:0"></div>'),
         $parent = $(),
         stickpoints = {
@@ -36,7 +37,10 @@
             keepInWrapper: false,
             wrapperSelector: '',
             zIndex: 99,
-            syncPosition:false
+            syncPosition:false,
+            disableOn:function(){
+                return true;
+            }
         },
                 
         getTopMargin = function () {
@@ -82,7 +86,7 @@
             
             if (forceBottom){
                 $element.css({
-                    position: "absolute",
+                    position: "absolute"
                 });
                 var topOffset = 
                     ($parent.offset().top + $parent.outerHeight()) //bottom of container
@@ -150,11 +154,21 @@
             });
             $element.css({
                  "margin-left" :$placeholder.css('margin-left'),
-                 "margin-right" :$placeholder.css('margin-right'),
+                 "margin-right" :$placeholder.css('margin-right')
             });
         },
 
         stickUpScrollHandlerFn = function (event) {
+            if(!options.disableOn()){
+                if(!disabled){
+                    void 0;
+                    unStick();
+                    disabled = true;
+                }
+                return;
+            }else if(disabled){
+                disabled = false;
+            }
             scroll = $(event.target).scrollTop();
             scrollDir = (scroll >= lastScrollTop) ? 'down' : 'up';
             scrollDistance = Math.abs(lastScrollTop - scroll);
@@ -292,7 +306,7 @@
             if (opts) {
                 $.extend(true, options, opts);
             } 
-            topMargin = (options.topMargin != null) ? getTopMargin() : 0;
+            topMargin = (options.topMargin !== null) ? getTopMargin() : 0;
             if(options.lazyHeight)
                 topMargin = topMargin + options.lazyHeight;
             if(options.keepInWrapper){
