@@ -195,6 +195,7 @@
             if(stickyHeight>viewportHeight){
                 portrait = true;
                 if(landscape){
+                    offset = 0;
                     holdIt();
                     landscape = false;
                 }
@@ -244,7 +245,7 @@
                 if (options.scrollHide)
                     offset = stickyHeight + options.lazyHeight; //negative offset for initial hiding
                 else
-                    offset = + options.lazyHeight;
+                    offset = options.lazyHeight;
                 
                 if(!active && !bottom && scroll >= stickpoints.top - topMargin + offset 
                 || bottom && hold && scroll <= elementOffset - topMargin + offset){

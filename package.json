@@ -1,6 +1,6 @@
 {
   "name": "stickUp",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "src/stickUp.js",
   "description": "A simple jQuery plugin for sticking elements in different scenarios",
   "author": "Patrik Powalowski",

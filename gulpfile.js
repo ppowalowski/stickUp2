@@ -16,7 +16,7 @@ gulp.task('js', function () {
 // Watch
 gulp.task('watch', function() {
         // Watch .scss files
-        gulp.watch('src/**/*.js', ['js']);      
+        gulp.watch('src/**/*.js', ['js']);
 });
 
 // Default task
