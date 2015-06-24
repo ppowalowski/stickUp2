@@ -1,6 +1,6 @@
 'use strict';
 
-var app = (function (document, $) {
+var app = (function (window, document, $) {
     var docElem = document.documentElement,
             _userAgentInit = function () {
                 docElem.setAttribute('data-useragent', navigator.userAgent);
@@ -31,10 +31,15 @@ var app = (function (document, $) {
                     wrapperSelector:'.row.container'
                 });
             };
+//            jQuery(window).on('scroll',function(e){
+//                if(jQuery(this).scrollTop()>1000){
+//                    $('.sidebar-1').css('min-height','105vh');
+//                }
+//            });
     return {
         init: _init
     };
-})(document, jQuery);
+})(window, document, jQuery);
 
 (function () {
     app.init();
