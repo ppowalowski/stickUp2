@@ -62,6 +62,22 @@ function(){
 }
 ```
 
+**namespaceClass (>2.3.0)**  
+option to control set the class which is added to the main element to 
+which stickUp is applied
+```
+default: 'stuckElement'
+options: string
+```
+
+**fixedClass (>2.3.0)**  
+option to set the class which is added to the main element to 
+which stickUp is applied when in fixed state
+```
+default: 'stuckElement'
+options: string
+```
+
 **keepInWrapper**  
 option to control wether the sticked element is caught in a wrapping container
 ```

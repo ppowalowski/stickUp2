@@ -38,6 +38,8 @@
             wrapperSelector: '',
             zIndex: 99,
             syncPosition:false,
+			namespaceClass: "stuckElement",
+			fixedClass: "isStuck",
             disableOn:function(){
                 return true;
             }
@@ -61,7 +63,7 @@
         unStick = function(){
             console.log('unStick()');
             $placeholder.remove();
-            $element.removeClass('isStuck')
+            $element.removeClass(options.fixedClass)
             .css({ 
                 maxWidth:"",
                 marginTop: "", 
@@ -109,7 +111,7 @@
             console.log('stickIt()');
             active = true;
             $element.before($placeholder.css('height', outerHeight));
-            $element.addClass('isStuck');
+            $element.addClass(options.fixedClass);
             var topDistance = -offset;
 
             $element.css({
@@ -126,7 +128,7 @@
         stickAtBottom = function(){
             console.log('stickAtBottom');
             $element.before($placeholder.css('height', outerHeight));
-            $element.addClass('isStuck');
+            $element.addClass(options.fixedClass);
             var bottomDistance = -offset;//-offset;
 
             $element.css({
@@ -310,7 +312,7 @@
         var initialize = function(elem,opts){
             $element = $(elem);
             // adding a class to users div
-            $element.addClass('stuckElement');
+            $element.addClass(options.namespaceClass);
             //getting options
             if (opts) {
                 $.extend(true, options, opts);
