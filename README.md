@@ -74,7 +74,7 @@ options: string
 option to set the class which is added to the main element to 
 which stickUp is applied when in fixed state
 ```
-default: 'stuckElement'
+default: 'isStuck'
 options: string
 ```
 
