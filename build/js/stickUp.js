@@ -175,6 +175,9 @@
             }else if(disabled){
                 disabled = false;
             }
+            if(options.keepInWrapper && !$parent.is(':visible')) {
+                return;
+            }
             scroll = $(event.target).scrollTop();
             scrollDir = (scroll >= lastScrollTop) ? 'down' : 'up';
             scrollDistance = Math.abs(lastScrollTop - scroll);
@@ -308,6 +311,7 @@
                 stickUpScrollHandlerFn(event);
 
         };
+
         //init
         var initialize = function(elem,opts){
             $element = $(elem);
@@ -325,7 +329,7 @@
                     $parent = $element.closest(options.wrapperSelector);
                 //if no Wrapper available use offsetParent
                 if(!$parent.length)
-                    $parent = $element.offsetParent();
+                    $parent = $element.parent();
             }else{
                 $parent = $('body');
             }
@@ -336,8 +340,7 @@
                 syncMargins();
             }
             
-            
-            $(document).on('scroll.stickUp', stickUpScrollHandlerFn);
+            $(window).on('scroll.stickUp', stickUpScrollHandlerFn);
             $(window).on('resize.stickUp', stickUpResponsiveHandlerFn);
             //initial round ;-)
             stickUpScrollHandlerFn({target: document});
