@@ -2,6 +2,9 @@ stickUp2
 =======
 a jQuery plugin
 
+
+[![How StickUp Works](how-stickup-works.gif "Sticky Elements made simple")](http://ppowalowski.github.io/stickUp2/)
+
 A simple plugin that "sticks" elements to the top of the browser window while 
 scrolling past it. For better experience it optionally offers autohide with 
 reappearence after scrolling up.
