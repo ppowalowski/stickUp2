@@ -2201,6 +2201,9 @@ header, .white-text {
   header a, header a:hover, header a:focus, header p, header li, header h1, header h2, header h3, header h4, header h5, header h6, .white-text a, .white-text a:hover, .white-text a:focus, .white-text p, .white-text li, .white-text h1, .white-text h2, .white-text h3, .white-text h4, .white-text h5, .white-text h6 {
     color: #FFFFFF; }
 
+[alt="How StickUp Works"] {
+  display: none; }
+
 .hipster-button, header a.button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2273,7 +2276,18 @@ pre {
   min-height: 120vh; }
 
 .sidebar-1 {
-  min-height: 60vh; }
+  transition: all 0.3s ease;
+  transition-property: background, border;
+  min-height: 60vh;
+  /*    background:rgba(242,242,242,.2);*/
+  /*border-color:transparent;*/ }
+  .sidebar-1 h3 {
+    transition: all 0.2s ease; }
+  .sidebar-1.isStuck {
+    background: #888;
+    border-color: #888; }
+    .sidebar-1.isStuck h3, .sidebar-1.isStuck h3 * {
+      color: #FFFFFF; }
 
 header {
   background: #c10029;
