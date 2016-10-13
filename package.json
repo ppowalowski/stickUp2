@@ -4,10 +4,19 @@
   "main": "src/stickUp.js",
   "description": "A simple jQuery plugin for sticking elements in different scenarios",
   "author": "Patrik Powalowski",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppowalowski/stickUp2"
+  },
+  "bugs": {
+    "url": "https://github.com/ppowalowski/stickUp2/issues"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.3.4",
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^0.3.1"
-  }
+  },
+  "homepage": "http://ppowalowski.github.io/stickUp2/"
 }
