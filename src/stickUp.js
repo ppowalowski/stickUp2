@@ -60,7 +60,17 @@
             }
         },
                 
-        unStick = function(){
+        unStick = function () {
+            console.log('stickUp:beforeUnstick');
+            var eventArgs = {
+                cancel: false
+            };
+
+            $element.trigger('stickUp:beforeUnstick', [eventArgs]);
+            if (eventArgs.cancel) {
+                return;
+            }
+
             console.log('unStick()');
             $placeholder.remove();
             $element.removeClass(options.fixedClass)
@@ -81,6 +91,9 @@
             hold = false;
             if(options.syncPosition)
                 syncMargins();
+
+            $element.trigger('stickUp:unstick');
+            console.log('stickUp:unstick');
         },
                 
         holdIt = function(forceBottom){
@@ -107,7 +120,18 @@
                 top: forceBottom? topOffset : $element.offset().top - offsetParent.offset().top - topMargin
             });
         },
-        stickIt = function(){
+
+        stickIt = function () {
+            console.log('stickUp:beforeStick');
+            var eventArgs = {
+                cancel: false
+            };
+
+            $element.trigger('stickUp:beforeStick', [eventArgs]);
+            if (eventArgs.cancel) {
+                return;
+            }
+
             console.log('stickIt()');
             active = true;
             $element.before($placeholder.css('height', outerHeight));
@@ -124,8 +148,12 @@
                 //right: "auto",
                 bottom:""
             });
+
+            $element.trigger('stickUp:stick');
+            console.log('stickUp:stick');
         },
-        stickAtBottom = function(){
+
+        stickAtBottom = function () {
             console.log('stickAtBottom');
             $element.before($placeholder.css('height', outerHeight));
             $element.addClass(options.fixedClass);
@@ -142,17 +170,20 @@
                 bottom:bottomDistance
             });
         },
-        syncWidth = function(){
+
+        syncWidth = function () {
             if($placeholder.width()!==$element.outerWidth())
                 $element.outerWidth($placeholder.outerWidth());
         },
-        syncPosition = function(){
+
+        syncPosition = function () {
             //retrieve margin
             left = $placeholder.offset().left;
             if(left !== $element.offset().left);
                 $element.offset({'left':left});
         },
-        syncMargins = function(){
+
+        syncMargins = function () {
             //retrieve margin
             $placeholder.css({
                 'margin-left':$element.css('margin-left'),
@@ -301,8 +332,11 @@
             if(options.syncPosition && active || hold)
 				syncPosition();
             //console.log("active ",active,"hold ",hold,"bottom ",bottom);
+
+            $element.trigger('stickUp:scroll');
         },
-        stickUpResponsiveHandlerFn = function(event){
+
+        stickUpResponsiveHandlerFn = function (event) {
             if(hold){
                 holdIt();
                 bottom = false;

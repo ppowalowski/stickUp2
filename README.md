@@ -104,6 +104,40 @@ default: false
 options: boolean
 ```
 
+### Events
+
+**stickUp:beforeStick**
+
+The event is called before the element is stick. User has a capability to cancel stick operation.
+
+_Arguments:_
+
+```
+cancel: bool
+```
+
+**stickUp:stick**
+
+The event is called when the element is stick.
+
+**stickUp:beforeUnstick**
+
+The event is called before the element is unstick. User has a capability to cancel unstick operation.
+
+_Arguments:_
+
+```
+cancel: bool
+```
+
+**stickUp:unstick**
+
+The event is called when the element is unstick.
+
+**stickUp:scroll**
+
+The event is called when user is scrolling the window.
+
 ## WANTED: Contribution
 ##### Tests
 + test environment needed to avoid manual testing failure
