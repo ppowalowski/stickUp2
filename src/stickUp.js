@@ -337,12 +337,14 @@
         },
 
         stickUpResponsiveHandlerFn = function (event) {
+            $element.trigger('stickUp:resize',options);
+            topMargin = (options.topMargin !== null) ? getTopMargin() : 0;
             if(hold){
                 holdIt();
                 bottom = false;
             }
             console.log('resize');
-                stickUpScrollHandlerFn(event);
+            stickUpScrollHandlerFn(event);
 
         };
 
