@@ -138,6 +138,10 @@ The event is called when the element is unstick.
 
 The event is called when user is scrolling the window.
 
+**stickUp:resize**
+
+The event is called when the viewport is resized, second passed parameter is the options object to change options on the fly
+
 ## WANTED: Contribution
 ##### Tests
 + test environment needed to avoid manual testing failure
